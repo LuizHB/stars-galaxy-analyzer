@@ -4,11 +4,7 @@ from astropy.io import fits
 from astropy.modeling import Fittable2DModel
 import matplotlib.pyplot as plt
 import numpy as np
-import copy
 from scipy import optimize
-from numpy import pi, r_
-from matplotlib.colors import LogNorm
-from random import randint
 
 #Calling the fits file
 hdulist = fits.open('file_name.fits')
