@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+
+from astropy.io import fits
+from astropy.modeling import Fittable2DModel
+import matplotlib.pyplot as plt
+import numpy as np
+import copy
+from scipy import optimize
+from numpy import pi, r_
+from matplotlib.colors import LogNorm
+from random import randint
+
+#Calling the fits file
+hdulist = fits.open('file_name.fits')
+hdulist.info()
+
+#Excluding the nan data
+image_data = hdulist[0].data
+image_data2 = np.nan_to_num(image_data)
+
+def moments(data):
+    """Returns (height, x, y, width_x, width_y)
+    the gaussian parameters of a 2D distribution by calculating its
+    moments """
+    total = data.sum()
+    X, Y = np.indices(data.shape)
+    x = (X*data).sum()/total
+    y = (Y*data).sum()/total
+    col = data[:, int(y)]
+    width_x = np.sqrt(np.abs((np.arange(col.size)-y)**2*col).sum()/col.sum())
+    row = data[int(x), :]
+    width_y = np.sqrt(np.abs((np.arange(row.size)-x)**2*row).sum()/row.sum())
+    height = data.max()
+    return height, x, y, width_x, width_y
+   
+def fitgaussian(data):
+    """Returns (height, x, y, width_x, width_y)
+    the gaussian parameters of a 2D distribution found by a fit"""
+    params = moments(data)
+    errorfunction = lambda p: np.ravel(gaussian(*p)(*np.indices(data.shape)) -
+                                 data)
+    p, success = optimize.leastsq(errorfunction, params)
+    return p
+    
+#Creating the data and plotting the gaussian fit
+
+moments(image_data2)
+
+plt.matshow(image_data2, cmap=plt.cm.gist_earth_r)
+
+params = fitgaussian(image_data2)
+fit = gaussian(*params)
+
+plt.contour(fit(*np.indices(image_data2.shape)), cmap=plt.cm.copper)
+ax = plt.gca()
+(height, x, y, width_x, width_y) = params
+
+plt.text(0.95, 0.05, """
+x : %.1f
+y : %.1f
+width_x : %.1f
+width_y : %.1f""" %(x, y, width_x, width_y),
+        fontsize=16, horizontalalignment='right',
+        verticalalignment='bottom', transform=ax.transAxes)
+plt.show()
+
+hdulist.close()
+
+
