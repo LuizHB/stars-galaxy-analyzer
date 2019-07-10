@@ -9,7 +9,7 @@ from astropy.visualization import SqrtStretch, simple_norm
 from astropy.visualization.mpl_normalize import ImageNormalize
 import numpy as np
 
-hdulist = fits.open('ngc7412B.fits')
+hdulist = fits.open('file_name.fits')
 hdulist.info()
 image_data = hdulist[0].data
 
