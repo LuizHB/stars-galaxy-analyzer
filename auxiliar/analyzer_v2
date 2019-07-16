@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#!python number=enable
 
 from astropy.io import fits
 from astropy.modeling import Fittable2DModel
