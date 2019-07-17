@@ -4,7 +4,8 @@ Models to analyze the brightest stars of a galaxy and change their position for 
 
 
 
-Auxiliar functions tested and created to apply in the main project. 
+Auxiliar functions tested and created to apply in the main project.
+
 #Func.py has two simple math operations designed to work with this structure. One as grid rotation of the sky axis by an angle, and the second as an angles grid for the galaxy.
 
 #data_smoother.py is a function to smooth the data for a better visualization.
