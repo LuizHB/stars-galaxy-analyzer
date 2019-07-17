@@ -55,7 +55,7 @@ y = moments(image_data2)[2]
 width_x = moments(image_data2)[3]
 width_y = moments(image_data2)[4]    
 
-#sky and theta used have values found in the data header or outside the file
+#sky and theta used have values found in the data header, data image or outside the file
 initial_guess = (height,x,y,width_x,width_y,sky,theta)
 popt, pcov = optimize.curve_fit(twoD_Gaussian, (xx, yy), image_data2.ravel(), p0=initial_guess)    
     
