@@ -3,7 +3,6 @@ from astropy.modeling import Fittable2DModel
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import optimize
-#from sgolay2D import sgolay2d
 from matplotlib.pyplot import matshow
 import scipy.signal
 from Func import dist, twoD_Gaussian, moments
