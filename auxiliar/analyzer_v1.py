@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-
 from astropy.io import fits
 from astropy.modeling import Fittable2DModel
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import optimize
+From Func import moments, fitgaussian
 
 #Calling the fits file
 hdulist = fits.open('file_name.fits')
@@ -13,31 +13,7 @@ hdulist.info()
 #Excluding the nan data
 image_data = hdulist[0].data
 image_data2 = np.nan_to_num(image_data)
-
-def moments(data):
-    """Returns (height, x, y, width_x, width_y)
-    the gaussian parameters of a 2D distribution by calculating its
-    moments """
-    total = data.sum()
-    X, Y = np.indices(data.shape)
-    x = (X*data).sum()/total
-    y = (Y*data).sum()/total
-    col = data[:, int(y)]
-    width_x = np.sqrt(np.abs((np.arange(col.size)-y)**2*col).sum()/col.sum())
-    row = data[int(x), :]
-    width_y = np.sqrt(np.abs((np.arange(row.size)-x)**2*row).sum()/row.sum())
-    height = data.max()
-    return height, x, y, width_x, width_y
    
-def fitgaussian(data):
-    """Returns (height, x, y, width_x, width_y)
-    the gaussian parameters of a 2D distribution found by a fit"""
-    params = moments(data)
-    errorfunction = lambda p: np.ravel(gaussian(*p)(*np.indices(data.shape)) -
-                                 data)
-    p, success = optimize.leastsq(errorfunction, params)
-    return p
-    
 #Creating the data and plotting the gaussian fit
 
 moments(image_data2)
@@ -61,5 +37,3 @@ width_y : %.1f""" %(x, y, width_x, width_y),
 plt.show()
 
 hdulist.close()
-
-
