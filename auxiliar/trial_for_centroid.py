@@ -4,7 +4,7 @@ from astropy.modeling import Fittable2DModel
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import optimize
-From Functions import moments, fitgaussian
+from Functions import moments, fitgaussian
 
 #Calling the fits file
 hdulist = fits.open('file_name.fits')
