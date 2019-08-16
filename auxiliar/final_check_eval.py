@@ -5,7 +5,7 @@ import numpy as np
 from scipy import optimize
 from matplotlib.pyplot import matshow
 import scipy.signal
-from Func import dist, twoD_Gaussian, moments
+from Functions import dist, twoD_Gaussian, moments
 
 hdulist = fits.open('estrela_cut.fits')
 
