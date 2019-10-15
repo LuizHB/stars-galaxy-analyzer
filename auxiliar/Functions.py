@@ -21,7 +21,7 @@ def mat_theta(xg,yg,theta):
 def rot_ceu(theta_a,phi_a):
     """
     Method to calculate the rotation in the sky plane starting from a angle phi in radians 
-    """
+    """"
     phi_0 = np.pi*3./2.
     ang = phi_0 - phi_a
     theta_a = theta_a + ang
